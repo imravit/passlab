@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PassLab</title>
+<style>html,body{margin:0;background:#ECEDE8}@media (prefers-color-scheme:dark){html,body{background:#15171A}}</style>
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+#passlab{--bg:#ECEDE8;--panel:#F7F7F4;--fg:#1C1D1C;--mut:#6B6D66;--line:#C9CBC2;--accent:#A6762E;--accent-fg:#FFFFFF;--ring:#D8D2C2;--tex:rgba(28,29,28,.035);
+margin:0;color:var(--fg);font-family:'Work Sans',system-ui,sans-serif;background-color:var(--bg);
+background-image:repeating-linear-gradient(135deg,var(--tex) 0 2px,transparent 2px 7px);padding:30px 18px 50px;line-height:1.4;text-align:left}
+#passlab *{box-sizing:border-box}
+@media (prefers-color-scheme:dark){#passlab{--bg:#15171A;--panel:#1D2024;--fg:#E7E8E4;--mut:#9A9D98;--line:#2B2F34;--accent:#D4A24C;--accent-fg:#15171A;--ring:#33302A;--tex:rgba(255,255,255,.03)}}
+#passlab button,#passlab input{font-size:inherit;margin:0;box-shadow:none;text-shadow:none}
+#passlab :root:not([data-theme="light"]){--bg:#15171A; --panel:#1D2024; --fg:#E7E8E4; --mut:#9A9D98; --line:#2B2F34;
+    --accent:#D4A24C; --accent-fg:#15171A; --ring:#33302A; --tex:rgba(255,255,255,.03);}
+#passlab .wrap{max-width:620px;margin:0 auto}
+#passlab header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+#passlab .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:2.1rem;letter-spacing:.01em;margin:0;text-transform:uppercase}
+#passlab .brand .dial{display:inline-block;width:.6em;height:.6em;border-radius:50%;background:var(--accent);margin-right:.18em;vertical-align:middle}
+#passlab .tagline{color:var(--mut);font-size:.9rem;margin:0 0 26px;max-width:48ch;line-height:1.5}
+#passlab .panel{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:18px 20px;margin-bottom:14px;position:relative}
+#passlab h2{font-family:'Oswald',sans-serif;font-size:.84rem;font-weight:600;letter-spacing:.04em;margin:0 0 12px;color:var(--mut);text-transform:uppercase}
+#passlab .kb{display:flex;flex-wrap:wrap;gap:9px}
+#passlab .k{width:38px;height:38px;border-radius:50%;border:2px solid var(--ring);background:var(--bg);color:var(--fg);
+  font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:500;cursor:pointer;
+  transition:background .12s,color .12s,border-color .12s,transform .08s}
+#passlab .k:active{transform:scale(.93)}
+#passlab .k.on{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+#passlab .rowbtns{display:flex;gap:8px;margin-top:12px}
+#passlab .rowbtns button{flex:1;padding:7px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--mut);font-size:.76rem;cursor:pointer;font-family:'Work Sans',sans-serif}
+#passlab .rowbtns button:hover{color:var(--fg);border-color:var(--fg)}
+#passlab #lenRow{display:flex;align-items:center;gap:12px}
+#passlab #lenRow input[type=range]{flex:1;accent-color:var(--accent)}
+#passlab #lenVal{min-width:90px;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--fg)}
+#passlab .radios{display:flex;gap:18px;font-size:.88rem;flex-wrap:wrap}
+#passlab .radios label{display:flex;align-items:center;gap:6px;cursor:pointer}
+#passlab .radios input{accent-color:var(--accent)}
+#passlab .disclaimer p{font-size:.84rem;line-height:1.7;color:var(--fg);margin:0 0 10px}
+#passlab .disclaimer .more{background:none;border:0;color:var(--accent);font-size:.82rem;font-weight:600;padding:0 0 12px;cursor:pointer;font-family:'Work Sans',sans-serif}
+#passlab .agree{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;color:var(--fg);cursor:pointer}
+#passlab .agree input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex-shrink:0}
+#passlab #genBtn{width:100%;padding:15px;border:0;border-radius:10px;background:var(--accent);color:var(--accent-fg);
+  font-family:'Oswald',sans-serif;font-weight:600;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+#passlab #genBtn:hover:not(:disabled){filter:brightness(1.06)}
+#passlab #genBtn:disabled{opacity:.4;cursor:not-allowed}
+#passlab #info{font-size:.86rem;line-height:1.7;color:var(--fg)}
+#passlab #info b{color:var(--accent);font-family:'JetBrains Mono',monospace;font-weight:700}
+#passlab .dlrow{display:flex;gap:8px;margin-top:10px}
+#passlab .dlrow button{flex:1;padding:11px;border:1px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:.84rem;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600}
+#passlab .dlrow button:hover{background:var(--accent);color:var(--accent-fg)}
+#passlab .dlrow input{width:120px;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:.85rem;font-family:'JetBrains Mono',monospace}
+#passlab #vp{height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:8px;position:relative;background:var(--bg);margin-top:12px;display:none}
+#passlab #sp{position:relative;width:100%}
+#passlab #rows{position:absolute;left:0;right:0;top:0}
+#passlab .r{display:flex;height:22px}
+#passlab .c{flex:1;line-height:22px;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--fg)}
+#passlab .c:nth-child(odd){background:var(--tex)}
+#passlab footer{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--mut);text-align:center}
+</style>
+<div id="passlab">
+<div class="wrap">
+<header>
+  <p class="brand"><span class="dial"></span>PassLab</p>
+</header>
+<p class="tagline">See how big a password's combination space really is.</p>
+<div class="panel">
+  <h2>Letters (a–z)</h2>
+  <div class="kb" id="letGrid"></div>
+  <div class="rowbtns"><button id="letAll">Select all</button><button id="letNone">Clear</button></div>
+</div>
+<div class="panel">
+  <h2>Numbers (1–9)</h2>
+  <div class="kb" id="digGrid"></div>
+  <div class="rowbtns"><button id="digAll">Select all</button><button id="digNone">Clear</button></div>
+</div>
+<div class="panel">
+  <h2>Special characters (optional)</h2>
+  <input type="text" id="specialInput" placeholder="e.g. !@#$%" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-family:'JetBrains Mono',monospace;font-size:.9rem">
+  <p style="font-size:.78rem;color:var(--mut);margin:8px 0 0">Type any characters you want included — each one is added once, on top of the letters and numbers selected above.</p>
+</div>
+<div class="panel">
+  <h2>Password length</h2>
+  <div id="lenRow"><input type="range" id="lenSlider" min="1" max="8" value="4"><span id="lenVal">4 characters</span></div>
+</div>
+<div class="panel">
+  <h2>Repetition of characters</h2>
+  <div class="radios">
+    <label><input type="radio" name="rep" value="yes" checked> Allowed (e.g. aabb)</label>
+    <label><input type="radio" name="rep" value="no"> Not allowed (no repeats)</label>
+  </div>
+</div>
+<div class="panel disclaimer">
+  <h2>Disclaimer</h2>
+  <p id="discSummary">Educational tool only — everything runs in your browser, nothing is stored, and it must never be used to access accounts or systems you don't own or have permission to test.</p>
+  <div id="discFull" style="display:none">
+    <p>PassLab shows how password combinations work and why length and variety matter for real security. It runs entirely in your browser — nothing you select or generate is sent to, logged, or stored on any server. This is for learning and curiosity only, never for guessing, cracking, or accessing accounts, devices, or systems you don't own or aren't authorised to test — doing so is illegal in most countries. Combinatorics alone never protects a password: real systems should store passwords as salted, hashed values and add rate-limiting and multi-factor authentication. By using PassLab, you agree to use it responsibly and only for lawful, ethical purposes.</p>
+  </div>
+  <button class="more" id="moreBtn">Read more</button>
+  <label class="agree"><input type="checkbox" id="agreeBox"> I have read and understood this disclaimer.</label>
+</div>
+<button id="genBtn" disabled>Generate</button>
+<div class="panel" style="margin-top:14px">
+  <div id="info">Select characters above and tap Generate.</div>
+  <div class="dlrow" id="dlRow" style="display:none">
+    <button id="dlFull">Download full list (.txt)</button>
+  </div>
+  <div class="dlrow" id="sampleRow" style="display:none">
+    <input id="sampleN" type="number" min="100" value="1000000"><button id="dlSample">Download sample (.txt)</button>
+  </div>
+  <div id="vp"><div id="sp"><div id="rows"></div></div></div>
+</div>
+<div class="panel" id="suggestPanel" style="display:none">
+  <h2>Strong Password Suggestions</h2>
+  <div id="suggestList" style="font-family:'JetBrains Mono',monospace;font-size:.9rem;line-height:2"></div>
+  <p style="font-size:.78rem;color:var(--mut);margin:8px 0 0">5 random picks from your selected combination space — tap Generate again for a new set.</p>
+</div>
+<footer>Made by I'm Ravit</footer>
+</div>
+</div>
+<script>
+(function(){
+const root=document.getElementById('passlab');
+const $=function(id){return document.getElementById(id)};
+const LETTERS='abcdefghijklmnopqrstuvwxyz'.split('');
+const DIGITS='123456789'.split('');
+const COLS=3;
+const DISPLAY_LIMIT=2000000;
+const FULL_DL_LIMIT=10000000;
+const RH=22,VH=360;
+function buildGrid(container,arr,idPrefix,defaultOn){
+  container.innerHTML=arr.map(c=>`<button class="k${defaultOn?' on':''}" data-c="${c}" id="${idPrefix}_${c}">${c}</button>`).join('');
+  container.querySelectorAll('.k').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
+}
+const letGrid=$('letGrid'),digGrid=$('digGrid');
+buildGrid(letGrid,LETTERS,'L',true);
+buildGrid(digGrid,DIGITS,'D',true);
+function setAll(container,on){container.querySelectorAll('.k').forEach(b=>b.classList.toggle('on',on))}
+$('letAll').onclick=()=>setAll(letGrid,true);
+$('letNone').onclick=()=>setAll(letGrid,false);
+$('digAll').onclick=()=>setAll(digGrid,true);
+$('digNone').onclick=()=>setAll(digGrid,false);
+const lenSlider=$('lenSlider'),lenVal=$('lenVal');
+lenSlider.oninput=()=>lenVal.textContent=lenSlider.value+' characters';
+const genBtn=$('genBtn'),agreeBox=$('agreeBox');
+agreeBox.addEventListener('change',()=>{genBtn.disabled=!agreeBox.checked});
+const moreBtn=$('moreBtn'),discFull=$('discFull'),discSummary=$('discSummary');
+moreBtn.onclick=()=>{
+  const open=discFull.style.display==='block';
+  discFull.style.display=open?'none':'block';
+  discSummary.style.display=open?'block':'none';
+  moreBtn.textContent=open?'Read more':'Show less';
+};
+function selected(container){return [...container.querySelectorAll('.k.on')].map(b=>b.dataset.c)}
+function buildCharset(){
+  const base=selected(letGrid).concat(selected(digGrid));
+  const sp=$('specialInput').value.split('').filter(c=>c.trim()!=='');
+  return [...new Set(base.concat(sp))];
+}
+let CS=[],LEN=4,TOTAL=0,REP=true;
+function toStr(i){let s='';const n=CS.length;for(let k=0;k<LEN;k++){s=CS[i%n]+s;i=Math.floor(i/n)}return s}
+function permCount(n,k){if(k>n)return 0;let p=1;for(let i=0;i<k;i++)p*=(n-i);return p}
+function toStrPerm(i){
+  const pool=CS.slice();let s='';let idx=i;
+  for(let pos=0;pos<LEN;pos++){
+    const remK=LEN-pos-1;
+    const block=permCount(pool.length-1,remK);
+    const choice=Math.floor(idx/block);
+    idx=idx%block;
+    s+=pool[choice];
+    pool.splice(choice,1);
+  }
+  return s;
+}
+function pick(i){return REP?toStr(i):toStrPerm(i)}
+const vp=$('vp'),sp=$('sp'),rowsEl=$('rows');
+function totalRows(){return Math.ceil(TOTAL/COLS)}
+function render(){
+  if(TOTAL>DISPLAY_LIMIT)return;
+  const tRows=totalRows();
+  const stRow=Math.max(0,Math.floor(vp.scrollTop/RH)),enRow=Math.min(tRows,stRow+Math.ceil(VH/RH)+2);
+  let h='';
+  for(let r=stRow;r<enRow;r++){
+    let cells='';
+    for(let c=0;c<COLS;c++){
+      const idx=r*COLS+c;
+      cells+= idx<TOTAL ? `<span class="c">${pick(idx)}</span>` : `<span class="c"></span>`;
+    }
+    h+=`<div class="r">${cells}</div>`;
+  }
+  rowsEl.style.transform=`translateY(${stRow*RH}px)`;rowsEl.innerHTML=h;
+}
+vp.addEventListener('scroll',render);
+function fmtExp(n){return n.toLocaleString('en-IN',{maximumFractionDigits:0})}
+function genSuggestions(n){
+  const picks=[];
+  for(let i=0;i<n;i++){
+    if(REP){let s='';for(let k=0;k<LEN;k++)s+=CS[Math.floor(Math.random()*CS.length)];picks.push(s)}
+    else{const pool=CS.slice();let s='';for(let k=0;k<LEN;k++){const ci=Math.floor(Math.random()*pool.length);s+=pool[ci];pool.splice(ci,1)}picks.push(s)}
+  }
+  return picks;
+}
+genBtn.onclick=()=>{
+  if(!agreeBox.checked)return;
+  CS=buildCharset();LEN=parseInt(lenSlider.value);
+  REP=root.querySelector('input[name=rep]:checked').value==='yes';
+  const info=$('info'),dlRow=$('dlRow'),sampleRow=$('sampleRow'),suggestPanel=$('suggestPanel');
+  if(CS.length===0){info.textContent='Select at least one letter or digit.';vp.style.display='none';dlRow.style.display='none';sampleRow.style.display='none';suggestPanel.style.display='none';return}
+  if(!REP&&LEN>CS.length){info.innerHTML=`Not possible: length (${LEN}) is more than the number of unique characters selected (${CS.length}). Select more characters, reduce length, or allow repetition.`;vp.style.display='none';dlRow.style.display='none';sampleRow.style.display='none';suggestPanel.style.display='none';return}
+  TOTAL=REP?Math.pow(CS.length,LEN):permCount(CS.length,LEN);
+  info.innerHTML=`Character set size: <b>${CS.length}</b> &nbsp;|&nbsp; Length: <b>${LEN}</b><br>
+    Total combinations: <b>${fmtExp(TOTAL)}</b>`;
+  if(TOTAL<=DISPLAY_LIMIT){
+    vp.style.display='block';sp.style.height=(totalRows()*RH)+'px';vp.scrollTop=0;render();
+    dlRow.style.display='flex';sampleRow.style.display='none';
+  } else if(TOTAL<=FULL_DL_LIMIT){
+    vp.style.display='none';dlRow.style.display='flex';sampleRow.style.display='none';
+    info.innerHTML+=`<br>Too many to show on screen — but the full .txt file (${fmtExp(TOTAL)} lines) can still be downloaded below.`;
+  } else {
+    vp.style.display='none';dlRow.style.display='none';sampleRow.style.display='flex';
+    info.innerHTML+=`<br>Too large to list or download in full — use a random sample below (max 1,00,00,000).`;
+  }
+  const sN=Math.min(5,TOTAL);
+  $('suggestList').innerHTML=genSuggestions(sN).map(p=>`<div>${p}</div>`).join('');
+  suggestPanel.style.display='block';
+};
+async function saveBlob(filename,blob){
+  try{
+    const d=await claude.use('downloads');
+    if(!d){alert('Download not available here.');return false}
+    await d.save({filename:filename,data:blob});
+    return true;
+  }catch(e){return false}
+}
+$('dlFull').onclick=async()=>{
+  const lines=new Array(TOTAL);
+  for(let i=0;i<TOTAL;i++)lines[i]=pick(i);
+  const blob=new Blob([lines.join('\n')+'\n'],{type:'text/plain'});
+  const ok=await saveBlob('passwords_'+LEN+'char_full.txt',blob);
+  $('info').innerHTML+=ok?'<br>Full list saved.':'<br>Download cancelled or unavailable.';
+};
+$('dlSample').onclick=async()=>{
+  let n=parseInt($('sampleN').value)||0;
+  n=Math.max(1,Math.min(10000000,n,TOTAL));
+  const lines=new Array(n);
+  for(let i=0;i<n;i++){
+    if(REP){let s='';for(let k=0;k<LEN;k++)s+=CS[Math.floor(Math.random()*CS.length)];lines[i]=s}
+    else{const pool=CS.slice();let s='';for(let k=0;k<LEN;k++){const ci=Math.floor(Math.random()*pool.length);s+=pool[ci];pool.splice(ci,1)}lines[i]=s}
+  }
+  const blob=new Blob([lines.join('\n')+'\n'],{type:'text/plain'});
+  const ok=await saveBlob('passwords_'+LEN+'char_sample_'+n+'.txt',blob);
+  $('info').innerHTML+=ok?`<br>Saved ${n.toLocaleString()} passwords.`:'<br>Download cancelled or unavailable.';
+};
+})();
+</script>
+</body></html>
